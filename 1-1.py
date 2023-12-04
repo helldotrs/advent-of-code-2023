@@ -1001,7 +1001,7 @@ dhfbhone4fourlgzftg"""
 
 data_list = data_str.split("\n")
 
-alpha = "abcdefghijklmnopqrstuvwxyz"
+alphas = "abcdefghijklmnopqrstuvwxyz"
 
 total = 0
 
