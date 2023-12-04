@@ -1,4 +1,4 @@
-data = """2911threeninesdvxvheightwobm
+data_str = """2911threeninesdvxvheightwobm
 3three16xsxhpnqmzmnine8one
 seven5khtwo891hlb
 sixthreeqpzjpn195
