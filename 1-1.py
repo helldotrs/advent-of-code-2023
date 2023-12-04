@@ -999,4 +999,18 @@ zbjbeightfhbhcfkbhrthqhgsixthree11five
 fbfvqgvqfone5nctdcdpteighttwo
 dhfbhone4fourlgzftg"
 
-data = data.split('\n')
+data_list = data_str.split("\n")
+
+alpha = "abcdefghijklmnopqrstuvwxyz"
+
+total = 0
+
+for a in data_list:
+    a = a.lstrip(alphas).rstrip(alphas)
+
+    str_num = a[0] + a[-1]
+
+    total += int(str_num)
+
+print(total)
+
