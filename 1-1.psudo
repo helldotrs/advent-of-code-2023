@@ -1,0 +1,14 @@
+data_str = "a2b3c
+q1w2e3e4r4r5
+7er9"
+
+data_list = data.split("\n"
+
+total = 0
+
+for a in data_list:
+    a.trim_alphas_at_beginning().trim_alphas_at_end()
+    str_num = a[0] + a[-1]
+    total = int(str_num)
+
+print total
