@@ -12,7 +12,16 @@ Game 11: 14 red, 19 green; 2 blue, 6 red, 17 green; 12 green, 9 red, 6 blue"""
 
 data_list = data_str.split("\n")
 
+data_list = for item in data_list: item.strip("Game ")
 
+print(data_list)
+
+
+
+
+
+
+"""
 
 #############################
 desired_dict = [
@@ -33,4 +42,4 @@ example_dict = [
 data_list = data_str.split(\n)
 
 for item in data_list
-  item
+  item"""
