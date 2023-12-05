@@ -14,4 +14,6 @@ data_list = data_str.split("\n")
 
 data_list = [ item.split(": ")[1] for item in data_list ]
 
+data_list = [ item.split("; ") for item in data_list ]
+
 print(data_list)
