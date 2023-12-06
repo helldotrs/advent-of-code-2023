@@ -14,8 +14,13 @@ data_list = data_str.split("\n")
 
 data_list = [ item.split(": ")[1] for item in data_list ]
 
-data_list = [ item.split("; ") for item in data_list ]
+data_list = [ str(item).split("; ") for item in data_list ]
 
-data_list = [ item.split("; ") for item in data_list ]
+data_list = [ str(item).split(", ") for item in data_list ]
 
+for row in data_list:
+    for col in row: 
+     print(col[0] + col[-1])
+
+print('---')
 print(data_list)
