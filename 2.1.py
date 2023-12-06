@@ -16,20 +16,27 @@ Game 10: 13 green, 8 red, 8 blue; 10 red, 5 blue, 9 green; 3 blue, 2 green, 1 re
 Game 11: 14 red, 19 green; 2 blue, 6 red, 17 green; 12 green, 9 red, 6 blue"""
 
 data_list = data_str.split("\n")
-print(11111111)
-print(data_list)
 
 data_list = [ item.split(": ")[1] for item in data_list ]
-print(22222222)
-print(data_list)
 
 data_list = [ re.split("; |, ", item) for item in data_list ]
-print(33333333)
-print(data_list)
 
-for row in data_list:
-    for col in row: 
-     print(col[0] + col[2])
+totals = []
+for i in data_list:
+    high_dict = {   "red"  :0,
+			"green":0,
+			"blue" :0
+    }
+    for j in i:
+        split_up = j.split(" ", 1)
+        num      = int(split_up[0]) 
+        clr      = str(split_up[1])
+        if num > high_dict[clr]:
+            high_dict[clr] = num
+    
+    totals.append(high_dict)
+        	    
+    	    
 
 print('---')
-print(data_list)
+print(totals)
