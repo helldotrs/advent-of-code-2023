@@ -1015,8 +1015,8 @@ nums = {
 }
 
 
-for a in data_list:
-    pass
+for alpha, numberal in nums.items():
+    data_list = data_list replace(alpha, numberal)
 
 alphas = "abcdefghijklmnopqrstuvwxyz"
 
