@@ -1,8 +1,5 @@
 import re
 
-"""with open('input.txt', 'r') as file:
-    data_str = file.read()""" #FIXME: breaks the code..?
-
 data_str = """Game 1: 4 blue, 4 red, 16 green; 14 green, 5 red; 1 blue, 3 red, 5 green
 Game 2: 3 green, 8 red, 1 blue; 5 green, 6 blue; 4 green, 4 blue, 10 red; 2 green, 6 red, 4 blue; 8 red, 11 blue, 4 green; 10 red, 10 blue
 Game 3: 7 blue, 2 green; 9 blue, 2 green, 4 red; 5 blue, 2 red; 1 red, 1 green, 10 blue; 1 green, 5 blue, 1 red
@@ -124,11 +121,11 @@ for i in data_list:
             high_dict[clr] = num
     
     totals.append(high_dict)
+
         	    
 sum = 0
-for index, a in enumerate(totals):
-    if a["red"] <= 12 and a["green"] <= 13 and a["blue"] <= 14:
-    	sum += (int(index) + 1)  	    
+for a in totals:
+    sum += a["red"] * a["green"] * a["blue"]    
 
 
 print(sum)
