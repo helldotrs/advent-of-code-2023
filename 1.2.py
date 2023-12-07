@@ -999,8 +999,6 @@ zbjbeightfhbhcfkbhrthqhgsixthree11five
 fbfvqgvqfone5nctdcdpteighttwo
 dhfbhone4fourlgzftg"""
 
-data_list = data_str.split("\n")
-
 nums = {
     "zero": 0,
     "one": 1,
@@ -1014,9 +1012,15 @@ nums = {
     "nine": 9,
 }
 
-
 for alpha, numberal in nums.items():
-    data_list = data_list replace(alpha, numberal)
+    data_str    = data_str.replace(alpha, str(numberal))
+
+data_list = data_str.split("\n")
+
+
+
+
+
 
 alphas = "abcdefghijklmnopqrstuvwxyz"
 
