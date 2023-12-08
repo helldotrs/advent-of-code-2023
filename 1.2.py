@@ -999,6 +999,16 @@ zbjbeightfhbhcfkbhrthqhgsixthree11five
 fbfvqgvqfone5nctdcdpteighttwo
 dhfbhone4fourlgzftg"""
 
+example_data = """two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen"""
+#should return 281
+#data_str = example_data
+
 nums = {
     "zero": 0,
     "one": 1,
@@ -1012,13 +1022,31 @@ nums = {
     "nine": 9,
 }
 
+data_str = data_str.replace("one", "one1one")
+data_str = data_str.replace("two", "two2two")
+data_str = data_str.replace("three", "three3three")
+data_str = data_str.replace("four", "four4four")
+data_str = data_str.replace("five", "five5five")
+data_str = data_str.replace("six", "six6six")
+data_str = data_str.replace("seven", "seven7seven")
+data_str = data_str.replace("eight", "eight8eight")
+data_str = data_str.replace("nine", "nine9nine")
+# okay THIS UGLY but I'm done lmao. lesson learned: if given test data with known result, troubleshoot with it
+
+
+print("---")
+print(data_str)
+print("---")
+
+"""
 for alpha, numberal in nums.items():
     data_str    = data_str.replace(alpha, str(numberal))
-
+"""
 data_list = data_str.split("\n")
 
-
-
+print("---")
+print(data_list)
+print("---")
 
 
 
@@ -1030,6 +1058,8 @@ for a in data_list:
     a = a.lstrip(alphas).rstrip(alphas)
 
     str_num = a[0] + a[-1]
+
+    print(int(str_num))
 
     total += int(str_num)
 
