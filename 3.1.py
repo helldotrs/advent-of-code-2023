@@ -13,20 +13,38 @@ sample_input = """
 
 input = sample_input
 
+input = input.split("\n")
+
 blanks = [".",
           " ",
           "\n"]
 
-#function to extract numbers that have a non-blank neighbor and replace them with one x per digit
-def vertical_extract_numbers(input):
-    output = ""
-    for i in range(len(input)):
-        if input[i] in blanks:
-            output += input[i]
-        elif input[i-1] in blanks or input[i+1] in blanks:
-            output += input[i]
-        else:
-            output += "x"*len(input[i])
+#psudo code:
+def check_rows(input):
+    output = []
+    for row in input:
+        if row not in blanks:
+            output.append(row)
+
+#psudo code:
+solution = 0
+def rows(input)
+    output = """"""
+
+    for number in row(input)
+        #number is defined as a full number, NOT a single digit
+        if number has x-axis-neighboring non-blanks
+        solution += number
+        output.replace number with "x"
     return output
 
-print(vertical_extract_numbers(input))
+def columns(input):
+    output = """"""
+    for number in column(input)
+        #number is defined as a full number, NOT a single digit
+        if number has y-axis-neighboring non-blanks
+        solution += number
+        output.replace number with "x"
+    return output
+
+print(solution)
