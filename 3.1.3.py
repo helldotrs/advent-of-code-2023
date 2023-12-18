@@ -154,7 +154,7 @@ input_data = """.............65..................998.........453................
 ..579..410..3..44.291..........................538..................148....873.................461....................................722..."""
 
 input_data = """.1..
-.1..
+.11.
 ....
 .3x.
 5..6"""
@@ -184,7 +184,39 @@ def get_characters_map(data):
 
     return result
 
+
+
+def check_x_axis_for_neighbors(num_map, char_map):
+    # for every item, if char_map[i-1][j] or char_map[i+1][j] exists for i and j in num_map, copy cordinate to new list
+    result = []
+    for i, j in num_map:
+        if [i-1, j] in char_map or [i+1, j] in char_map:
+            result.append([i,j])
+    return result
+
+def check_y_axis_for_neighbors(num_map, char_map):
+    # for every item, when (char_map[i][j-1] or char_map[i][j+1]) and not (num_map[i][j-1] or num_map[i][j+1]) for i and j in num_map, copy cordinate to new list
+    result = []
+    for i, j in num_map:
+        if [i, j-1] in char_map or [i, j+1] in char_map:
+            result.append([i,j])
+
+    # define temp_result as a copy of result
+    temp_result = result.copy()
+
+
+    for i, j in temp_result:
+        if [i, j-1] in num_map or [i, j+1] in num_map:
+            result.remove([i,j]) # why does this not remove [1,2] from result?
+
+
+    return result
+
 num_map = get_number_map(input_data)
 char_map = get_characters_map(input_data)
+num_x_axis_neighbors_map = check_x_axis_for_neighbors(num_map, char_map) #the variable name that just rolls off the tongue
+num_y_axis_neighbors_map = check_y_axis_for_neighbors(num_map, char_map)
 print(f"num map: {num_map}")
 print(f"char map: {char_map}")
+print(f"num x axis neighbors map: {num_x_axis_neighbors_map}")
+print(f"num y axis neighbors map: {num_y_axis_neighbors_map}")
