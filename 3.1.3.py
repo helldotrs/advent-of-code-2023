@@ -163,7 +163,7 @@ print(input_data)
 input_data = input_data.split("\n")
 print(input_data)
 
-def get_number_map(data):
+def get_digit_map(data):
     result = []
 
     for i, string in enumerate(data):
@@ -186,18 +186,18 @@ def get_characters_map(data):
 
 
 
-def check_x_axis_for_neighbors(num_map, char_map):
-    # for every item, if char_map[i-1][j] or char_map[i+1][j] exists for i and j in num_map, copy cordinate to new list
+def check_x_axis_for_neighbors(digi_map, char_map):
+    # for every item, if char_map[i-1][j] or char_map[i+1][j] exists for i and j in digi_map, copy cordinate to new list
     result = []
-    for i, j in num_map:
+    for i, j in digi_map:
         if [i-1, j] in char_map or [i+1, j] in char_map:
             result.append([i,j])
     return result
 
-def check_y_axis_for_neighbors(num_map, char_map):
-    # for every item, when (char_map[i][j-1] or char_map[i][j+1]) and not (num_map[i][j-1] or num_map[i][j+1]) for i and j in num_map, copy cordinate to new list
+def check_y_axis_for_neighbors(digi_map, char_map):
+    # for every item, when (char_map[i][j-1] or char_map[i][j+1]) and not (digi_map[i][j-1] or digi_map[i][j+1]) for i and j in digi_map, copy cordinate to new list
     result = []
-    for i, j in num_map:
+    for i, j in digi_map:
         if [i, j-1] in char_map or [i, j+1] in char_map:
             result.append([i,j])
 
@@ -206,17 +206,78 @@ def check_y_axis_for_neighbors(num_map, char_map):
 
 
     for i, j in temp_result:
-        if [i, j-1] in num_map or [i, j+1] in num_map:
+        if [i, j-1] in digi_map or [i, j+1] in digi_map:
             result.remove([i,j]) # why does this not remove [1,2] from result?
 
 
     return result
 
-num_map = get_number_map(input_data)
+
+
+# function to convert neighbouring digits to numbers: [number, [coordinates]]. hence output with out data should be [[1, [[0,1]]], [11, [[1,1],[1,2]]], [3, [[3,1]]], [5, [[4,0]]], [6, [[4,3]]]]
+def convert_to_numbers(input_data, digi_map):
+    result = []
+    for i, j in digi_map:
+        # check if [i, j-1] or [i, j+1] exists in digi_map
+        if [i, j-1] in digi_map or [i, j+1] in digi_map:
+            # if so, check if [i, j-1] exists in digi_map
+            if [i, j-1] in digi_map:
+                # if so, check if [i, j+1] exists in digi_map
+                if [i, j+1] in digi_map:
+                    # if so, append [i, j] to result
+                    result.append([input_data[i][j-1:j+2], [[i, j-1], [i, j], [i, j+1]]])
+                else:
+                    # if not, append [i, j] and [i, j-1] to result
+                    result.append([input_data[i][j-1:j+1], [[i, j-1], [i, j]]])
+            # if not, check if [i, j+1] exists in digi_map
+            elif [i, j+1] in digi_map:
+                # if so, append [i, j] and [i, j+1] to result
+                result.append([input_data[i][j:j+2], [[i, j], [i, j+1]]])
+        else:
+            # if not, append [i, j] to result
+            result.append([input_data[i][j], [[i, j]]])
+
+    return result
+
+def get_list_of_num_with_x_neighbors(num_map, char_map):
+    result = []
+    for instance in num_map:
+        num = instance[0]
+        x_first = instance[1][0][0]
+        y_first = instance[1][0][1]
+        x_last = instance[1][-1][0]
+        y_last = instance[1][-1][1]
+        if [x_first-1, y_first] in char_map or [x_last+1, y_last] in char_map:
+            result.append([instance])
+    return result #im bloody stuck again
+
+
+
+def get_list_of_num_with_y_neighbors(num_map, digi_y_axis_neighbors_map):
+    result = []
+    for num, coords in num_map:
+        if coords in digi_y_axis_neighbors_map:
+            result.append([num, coords])
+    return result
+
+def remove_num_from_map(num_map, num):
+    for i, j in num_map:
+        if i == num:
+            num_map.remove([i,j])
+    return num_map
+
+
+digi_map = get_digit_map(input_data)
 char_map = get_characters_map(input_data)
-num_x_axis_neighbors_map = check_x_axis_for_neighbors(num_map, char_map) #the variable name that just rolls off the tongue
-num_y_axis_neighbors_map = check_y_axis_for_neighbors(num_map, char_map)
-print(f"num map: {num_map}")
+digi_x_axis_neighbors_map = check_x_axis_for_neighbors(digi_map, char_map) #the variable name that just rolls off the tongue
+digi_y_axis_neighbors_map = check_y_axis_for_neighbors(digi_map, char_map)
+print(f"digi map: {digi_map}")
 print(f"char map: {char_map}")
+print(f"digi x axis neighbors map: {digi_x_axis_neighbors_map}")
+print(f"digi y axis neighbors map: {digi_y_axis_neighbors_map}")
+num_map = convert_to_numbers(input_data, digi_map)
+print(f"num map: {num_map}")
+num_x_axis_neighbors_map = get_list_of_num_with_x_neighbors(num_map, char_map)
+num_y_axis_neighbors_map = get_list_of_num_with_y_neighbors(num_map, digi_y_axis_neighbors_map)
 print(f"num x axis neighbors map: {num_x_axis_neighbors_map}")
 print(f"num y axis neighbors map: {num_y_axis_neighbors_map}")
