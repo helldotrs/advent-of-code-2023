@@ -31,3 +31,50 @@ input = """467..114..
 ...$.*....
 .664.598.."""
 
+def print_list(in_list, divider=False):
+    for item in in_list:
+        print(item)
+        if divider:
+            print("!!")
+
+### start creating data_raw[]
+data_raw = input.split("\n") #tested. works.
+
+data_raw = ["." + item + "." for item in data_raw] #tested. works.
+
+data_raw = ["." * len(data_raw[0])] + data_raw + ["." * len(data_raw[0])] #tested. works.
+### end creating data_raw[]
+
+### create data_map. e for empty, d for digit, o for other. future: x for eXtracted. n for number
+data_map    = ["".join(
+            "e" if element == "."
+            else
+            "d" if element.isdigit()
+            else
+            "o"
+            for element in row)
+            for row in data_raw] #tested. works.
+
+#create data_nums
+data_nums = []
+
+for iterator, item in enumerate(data_raw): #tested. works.
+    jterator = 0
+    num_len = 0
+
+    for jterator, jtem in enumerate(item):
+        if jtem.isdigit():
+            num_len += 1
+        else:
+            if num_len > 0:
+                data_nums.append([iterator, jterator - num_len, num_len])
+                num_len = 0
+
+    if num_len > 0:
+        data_nums.append([iterator, jterator - num_len, num_len])
+
+
+###tests
+print(data_raw)
+print_list(data_map)
+print(data_nums)
