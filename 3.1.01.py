@@ -37,6 +37,8 @@ def print_list(in_list, divider=False):
         if divider:
             print("!!")
 
+total    = 0
+
 ### start creating data_raw[]
 data_raw = input.split("\n") #tested. works.
 
@@ -55,7 +57,7 @@ data_map    = ["".join(
             for element in row)
             for row in data_raw] #tested. works.
 
-#create data_nums
+#create data_nums #data_nums[x_pos, y_pos, len]
 data_nums = []
 
 for iterator, item in enumerate(data_raw): #tested. works.
@@ -74,7 +76,65 @@ for iterator, item in enumerate(data_raw): #tested. works.
         data_nums.append([iterator, jterator - num_len, num_len])
 
 
+#extract numbers with x neighbors:
+for item in data_nums: #tested. works. #FIXME - priority:low - BUT adjusted by MLLM, and uses .isdigit() instead of checking data_map
+    digits = ""
+
+    data_char_left = data_map[item[0]][item[1] - 1] if item[1] > 0 else ''
+    data_char_right = data_map[item[0]][item[1] + item[2]]
+
+    if data_char_left == "o" or data_char_right == "o":
+        digits = ''.join([c if c.isdigit() else 'x' for c in data_raw[item[0]][item[1]:item[1] + item[2]]])
+        total += int(digits)
+
+        # Replace digits with 'x' in data_map
+        data_map[item[0]] = data_map[item[0]][:item[1]] + 'x' * item[2] + data_map[item[0]][item[1] + item[2]:]
+
+#extract numbers with y neighbors:
+for item in data_nums:
+    data_char_top = data_map[item[0] - 1][item[1] : item[1] + item[2]] if item[0] > 0 else ''
+    data_char_bottom = data_map[item[0] + 1][item[1] : item[1] + item[2]] if item[0] < len(data_map) - 1 else ''
+
+    if any(char != 'e' for char in data_char_top + data_char_bottom):
+        number = data_raw[item[0]][item[1] : item[1] + item[2]]
+        total += int(number)
+
+        # Replace the entire number with 'x' in data_map
+        data_map[item[0]] = data_map[item[0]][:item[1]] + 'x' * item[2] + data_map[item[0]][item[1] + item[2]:]
+"""
+I got output 2547, doing this math, this was correct: 
+35 + 633 + 617 + 664 + 598
+
+this is where I reread and realized we also need to check for diagonals
+this is why I have been stuck... ffs.
+"""
+for item in data_nums:
+    x, y, length = item
+    first_digit = data_raw[x][y]
+    last_digit = data_raw[x][y + length - 1]
+
+    # Check for diagonals only for the first and last digit
+    if (
+        (x > 0 and y > 0 and data_map[x - 1][y - 1] not in ('e', 'd', 'x')) or
+        (x > 0 and y + length < len(data_map[x]) - 1 and data_map[x - 1][y + length] not in ('e', 'd', 'x')) or
+        (x + 1 < len(data_map) and y > 0 and data_map[x + 1][y - 1] not in ('e', 'd', 'x')) or
+        (x + 1 < len(data_map) and y + length < len(data_map[x]) - 1 and data_map[x + 1][y + length] not in ('e', 'd', 'x'))
+    ):
+        total += int(data_raw[x][y : y + length])
+
+        # Replace the entire number with 'x' in data_map
+        data_map[x] = data_map[x][:y] + 'x' * length + data_map[x][y + length:]
+
+
+
+
+
 ###tests
-print(data_raw)
+print_list(data_raw)
 print_list(data_map)
-print(data_nums)
+print_list(data_nums)
+
+print(f"data_raw = {data_raw}")
+print(f"data_map = {data_map}")
+print(f"data_nums = {data_nums}")
+print(total)
