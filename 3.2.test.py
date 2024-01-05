@@ -13,7 +13,7 @@ data_list = a.split("\n")
 
 result_list = []
 
-#find all numbers           
+#find all numbers
 for row in data_list:
     current_number = ""
 
@@ -30,3 +30,7 @@ if current_number:
 
 print(result_list)
 
+#psudo
+for x in range(first_digit_pos[-1], last_digit_pos[+1]):
+    for y in range(first_digit_pos[x][-1], last_digit_pos[x][+1]):
+        print(x, y) #ok, tired, continue tomorrow
