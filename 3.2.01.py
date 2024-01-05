@@ -268,9 +268,13 @@ for item in data_nums:
         # Replace the entire number with 'x' in data_map
         data_map[x] = data_map[x][:y] + 'x' * length + data_map[x][y + length:]
 
-
-
-
+#psudo
+gears_and_neighbor_numbers = []
+"""for every number, not digit, in data_raw
+    check every location in numbers location, row-1, row+1, row -1, char  -1 to char +1, row +1, char  -1 to char +1,
+    if match, add position of the gear [x,y] and the full number (as oppose to single digit)
+        to gears_and_neighbor_numbers as [position,numbers_added,total*=number] unless numbers is equal or more than 3, skip if so
+"""
 
 ###tests
 print_list(data_raw)
