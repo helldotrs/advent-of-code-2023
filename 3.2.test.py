@@ -34,3 +34,7 @@ print(result_list)
 for x in range(first_digit_pos[-1], last_digit_pos[+1]):
     for y in range(first_digit_pos[x][-1], last_digit_pos[x][+1]):
         print(x, y) #ok, tired, continue tomorrow
+
+for x_pos, x in enumerate(data_list):
+    for y_pos, y in enumerate(data_list):
+        print(ypos, y)
