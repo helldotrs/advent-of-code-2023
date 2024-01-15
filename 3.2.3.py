@@ -39,27 +39,21 @@ def find_stars(input_list):
 star_list = find_stars(data_list)
 
 def check_star_neighbors(input_list, stars_coordinates):
-    # This will store the results, which could be digits found near each '*'
     neighbors_info = []
 
-    # Iterate through each star coordinate in stars_coordinates
     for star_row, star_col in stars_coordinates:
-        # Initialize a list or other structure to hold information about this star's neighbors
         star_neighbors = []
 
-        # Check the neighboring cells around the star
-        # Remember to check in a 3x3 grid around the star
         for i in range(star_row - 1, star_row + 2):
             for j in range(star_col - 1, star_col + 2):
-                # Skip the cell if it's the star itself
-                if (i, j) != (star_row, star_col):
-                    # Check if the neighboring cell contains a digit
-                    if input_list[i][j].isdigit():
-                        # If it's a digit, add its information to star_neighbors
-                        # You might want to store the digit itself, its coordinates, or other relevant info
-                        star_neighbors.append((i, j, input_list[i][j]))
+                # Check if the neighboring cell contains a digit
+                # Note: We include the star's own cell in this check for simplicity. 
+                # Since it's always '*', it won't affect our digit search.
+                if input_list[i][j].isdigit():
+                    star_neighbors.append((i, j, input_list[i][j]))
 
-        # Add the information about this star's neighbors to the overall list
         neighbors_info.append((star_row, star_col, star_neighbors))
 
     return neighbors_info
+
+neighbors_list = check_star_neighbors(data_list, star_list)
