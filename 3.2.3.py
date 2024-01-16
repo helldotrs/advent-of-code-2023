@@ -56,4 +56,32 @@ def check_star_neighbors(input_list, stars_coordinates):
 
     return neighbors_info
 
+def is_part_of_larger_number(coord, input_list):
+    # Extract row and column indices from coord
+    row, col = coord
+
+    # Check if the digit is part of a larger number
+    # We need to check the cells to the left, right, above, and below the digit
+    # Since we're only interested in horizontal or vertical numbers, not diagonal
+
+    # Check left (if not on the left edge and the left cell is a digit)
+    if col > 0 and input_list[row][col - 1].isdigit():
+        return True  # The digit is part of a larger number
+
+    # Check right (if not on the right edge and the right cell is a digit)
+    if col < len(input_list[row]) - 1 and input_list[row][col + 1].isdigit():
+        return True
+
+    # Check above (if not on the top edge and the above cell is a digit)
+    if row > 0 and input_list[row - 1][col].isdigit():
+        return True
+
+    # Check below (if not on the bottom edge and the below cell is a digit)
+    if row < len(input_list) - 1 and input_list[row + 1][col].isdigit():
+        return True
+
+    # If none of the adjacent cells are digits, the digit is not part of a larger number
+    return False
+
+
 neighbors_list = check_star_neighbors(data_list, star_list)
