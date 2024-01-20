@@ -85,3 +85,5 @@ def is_part_of_larger_number(coord, input_list):
 
 
 neighbors_list = check_star_neighbors(data_list, star_list)
+
+print(neighbors_list)
